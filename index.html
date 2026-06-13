@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OPCO IA — Soluções em Inteligência Artificial</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -22,6 +22,7 @@
     }
     html{scroll-behavior:smooth}
     body{font-family:'Inter',sans-serif;background:var(--white);color:var(--g1);-webkit-font-smoothing:antialiased}
+    h1,h2,h3,.prod-title,.svc-title,.diff-text strong,.logo-name .t1{font-family:'Space Grotesk',sans-serif}
 
     /* ── HEADER ─────────────────────────────── */
     header{
@@ -80,6 +81,9 @@
       box-shadow:0 4px 18px rgba(245,166,35,.3);
     }
     .btn-primary:hover{background:var(--orange-h);transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.38)}
+    .btn-primary:focus-visible,.btn-ghost:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+    .lang-btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
     .btn-ghost{
       display:inline-flex;align-items:center;gap:8px;
       background:transparent;color:rgba(255,255,255,.8);
@@ -113,10 +117,11 @@
       background:var(--white);border-radius:var(--radius);
       border:1px solid var(--g5);padding:32px;
       display:flex;flex-direction:column;gap:0;
-      transition:box-shadow .2s,transform .15s;
-      text-decoration:none;color:inherit;
+      transition:box-shadow .25s,transform .2s,border-color .2s;
+      text-decoration:none;color:inherit;cursor:pointer;
     }
-    .prod-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.08);transform:translateY(-3px)}
+    .prod-card:hover{box-shadow:0 16px 48px rgba(245,166,35,.12),0 4px 16px rgba(0,0,0,.06);transform:translateY(-4px);border-color:rgba(245,166,35,.4)}
+    .prod-card:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
     .prod-top-bar{height:4px;border-radius:4px;background:var(--orange);margin-bottom:28px}
     .prod-icon{
       width:48px;height:48px;border-radius:12px;
@@ -144,9 +149,9 @@
     .svc-card{
       background:var(--white);border:1px solid var(--g5);
       border-radius:var(--radius);padding:32px;
-      transition:box-shadow .2s,transform .15s;
+      transition:box-shadow .25s,transform .2s,border-color .2s;
     }
-    .svc-card:hover{box-shadow:0 10px 32px rgba(0,0,0,.07);transform:translateY(-2px)}
+    .svc-card:hover{box-shadow:0 12px 36px rgba(245,166,35,.1),0 4px 12px rgba(0,0,0,.05);transform:translateY(-3px);border-color:rgba(245,166,35,.35)}
     .svc-circle{
       width:52px;height:52px;border-radius:50%;
       background:rgba(245,166,35,.13);
