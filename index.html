@@ -280,6 +280,57 @@
     footer p{font-size:12px;color:var(--g4)}
     footer a{color:var(--orange);text-decoration:none;font-weight:500}
 
+    /* ── LGPD COOKIE BANNER ──────────────────── */
+    #lgpd-banner{
+      position:fixed;bottom:0;left:0;right:0;z-index:9999;
+      background:var(--navy);color:#C8C8D8;
+      padding:18px 56px;
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+      border-top:2px solid var(--orange);
+      font-size:13.5px;line-height:1.55;
+    }
+    #lgpd-banner.hidden{display:none}
+    .lgpd-text a{color:var(--orange);text-decoration:underline;cursor:pointer}
+    .lgpd-actions{display:flex;gap:10px;flex-shrink:0}
+    .lgpd-accept{
+      background:var(--orange);color:var(--white);
+      border:none;border-radius:100px;padding:9px 22px;
+      font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;
+      transition:background .15s;
+    }
+    .lgpd-accept:hover{background:var(--orange-h)}
+    .lgpd-decline{
+      background:transparent;color:#888;
+      border:1px solid #444;border-radius:100px;padding:9px 22px;
+      font-family:'Inter',sans-serif;font-size:13px;cursor:pointer;
+      transition:border-color .15s,color .15s;
+    }
+    .lgpd-decline:hover{border-color:#888;color:#C8C8D8}
+
+    /* ── PRIVACY MODAL ───────────────────────── */
+    #privacy-overlay{
+      position:fixed;inset:0;z-index:10000;
+      background:rgba(0,0,0,.7);backdrop-filter:blur(4px);
+      display:flex;align-items:center;justify-content:center;padding:20px;
+    }
+    #privacy-overlay.hidden{display:none}
+    #privacy-modal{
+      background:var(--white);border-radius:var(--radius);
+      max-width:660px;width:100%;max-height:85vh;overflow-y:auto;
+      padding:40px;position:relative;
+    }
+    .privacy-close{
+      position:absolute;top:16px;right:20px;
+      background:none;border:none;font-size:22px;cursor:pointer;
+      color:var(--g3);line-height:1;
+    }
+    .privacy-close:hover{color:var(--g1)}
+    #privacy-modal h2{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:20px}
+    #privacy-modal h3{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--g1);margin:20px 0 8px}
+    #privacy-modal p,#privacy-modal li{font-size:14px;color:var(--g2);line-height:1.7;margin-bottom:8px}
+    #privacy-modal ul{padding-left:18px;margin-bottom:8px}
+    #privacy-modal a{color:var(--orange)}
+
     /* ── UTILS ────────────────────────────────── */
     .arrow{display:inline-block;transition:transform .15s}
     .prod-link:hover .arrow{transform:translateX(4px)}
@@ -497,8 +548,31 @@
     <a href="https://www.opcotours.com" target="_blank">opcotours.com</a>
     &nbsp;·&nbsp;
     <a href="https://nomadontheroad.club" target="_blank">nomadontheroad.club</a>
+    &nbsp;·&nbsp;
+    <a href="#" onclick="showPrivacy();return false;" data-t="privacy_link">Política de Privacidade</a>
   </p>
 </footer>
+
+<!-- ════════════════════════════════════════════
+     LGPD COOKIE BANNER
+════════════════════════════════════════════ -->
+<div id="lgpd-banner">
+  <span class="lgpd-text" data-t="lgpd_text">Este site usa cookies essenciais e carrega fontes do Google. Ao continuar, você concorda com nossa <a onclick="showPrivacy();return false;" href="#">Política de Privacidade</a> em conformidade com a LGPD.</span>
+  <div class="lgpd-actions">
+    <button class="lgpd-decline" onclick="lgpdDecline()" data-t="lgpd_decline">Recusar</button>
+    <button class="lgpd-accept" onclick="lgpdAccept()" data-t="lgpd_accept">Aceitar</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     PRIVACY POLICY MODAL
+════════════════════════════════════════════ -->
+<div id="privacy-overlay" class="hidden" onclick="if(event.target===this)hidePrivacy()">
+  <div id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+    <button class="privacy-close" onclick="hidePrivacy()" aria-label="Fechar">&times;</button>
+    <div id="privacy-content"></div>
+  </div>
+</div>
 
 <!-- ════════════════════════════════════════════
      TRANSLATIONS + LANGUAGE SWITCHER
@@ -532,6 +606,10 @@ const LANG = {
     cta_body: "Desenvolvemos soluções sob medida para empresas de turismo — e para qualquer setor que precise de IA aplicada de verdade. Entre em contato.",
     cta_btn: "Enviar mensagem →",
     footer: "Todos os direitos reservados.",
+    privacy_link: "Política de Privacidade",
+    lgpd_text: 'Este site usa cookies essenciais e carrega fontes do Google. Ao continuar, você concorda com nossa <a onclick="showPrivacy();return false;" href="#">Política de Privacidade</a> em conformidade com a LGPD.',
+    lgpd_accept: "Aceitar",
+    lgpd_decline: "Recusar",
   },
   de: {
     eyebrow: "KI-Lösungen für Ihr Unternehmen",
@@ -560,6 +638,10 @@ const LANG = {
     cta_body: "Wir entwickeln maßgeschneiderte KI-Lösungen für Tourismusunternehmen — und für jede Branche, die echte KI braucht. Schreiben Sie uns.",
     cta_btn: "Nachricht senden →",
     footer: "Alle Rechte vorbehalten.",
+    privacy_link: "Datenschutzrichtlinie",
+    lgpd_text: 'Diese Website verwendet essentielle Cookies und lädt Schriften von Google. Durch die weitere Nutzung stimmen Sie unserer <a onclick="showPrivacy();return false;" href="#">Datenschutzrichtlinie</a> zu.',
+    lgpd_accept: "Akzeptieren",
+    lgpd_decline: "Ablehnen",
   },
   en: {
     eyebrow: "AI Solutions for Your Business",
@@ -588,6 +670,10 @@ const LANG = {
     cta_body: "We build custom AI solutions for tourism companies — and for any industry that needs real applied AI. Reach out.",
     cta_btn: "Send a message →",
     footer: "All rights reserved.",
+    privacy_link: "Privacy Policy",
+    lgpd_text: 'This site uses essential cookies and loads fonts from Google. By continuing, you agree to our <a onclick="showPrivacy();return false;" href="#">Privacy Policy</a> in compliance with LGPD.',
+    lgpd_accept: "Accept",
+    lgpd_decline: "Decline",
   },
   es: {
     eyebrow: "Soluciones en Inteligencia Artificial",
@@ -616,6 +702,10 @@ const LANG = {
     cta_body: "Desarrollamos soluciones a medida para empresas de turismo — y para cualquier sector que necesite IA aplicada de verdad. Escríbenos.",
     cta_btn: "Enviar mensaje →",
     footer: "Todos los derechos reservados.",
+    privacy_link: "Política de Privacidad",
+    lgpd_text: 'Este sitio usa cookies esenciales y carga fuentes de Google. Al continuar, acepta nuestra <a onclick="showPrivacy();return false;" href="#">Política de Privacidad</a> conforme a la LGPD.',
+    lgpd_accept: "Aceptar",
+    lgpd_decline: "Rechazar",
   }
 };
 
@@ -646,6 +736,127 @@ function setLang(code) {
              : 'pt';
   setLang(code);
 })();
+
+// ── LGPD ─────────────────────────────────────
+(function() {
+  if (localStorage.getItem('lgpd_consent')) {
+    document.getElementById('lgpd-banner').classList.add('hidden');
+  }
+})();
+
+function lgpdAccept() {
+  localStorage.setItem('lgpd_consent', 'accepted');
+  document.getElementById('lgpd-banner').classList.add('hidden');
+}
+function lgpdDecline() {
+  localStorage.setItem('lgpd_consent', 'declined');
+  document.getElementById('lgpd-banner').classList.add('hidden');
+}
+
+// ── PRIVACY MODAL ────────────────────────────
+const PRIVACY = {
+  pt: `<h2>Política de Privacidade</h2>
+<p><strong>OPCO IA</strong> — home.opcoia.com.br &nbsp;|&nbsp; Última atualização: 13/06/2026</p>
+<h3>1. Controlador dos Dados</h3>
+<p>OPCO IA (Carlos Silva) — <a href="mailto:carlos@opcotours.com">carlos@opcotours.com</a> / <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>
+<h3>2. Dados Coletados</h3>
+<p>Este site <strong>não coleta dados pessoais</strong> diretamente. O contato é iniciado pelo usuário via e-mail ou Linktree. Dados fornecidos voluntariamente (nome, e-mail, mensagem) são usados exclusivamente para responder ao contato.</p>
+<h3>3. Cookies e Tecnologias</h3>
+<ul>
+  <li><strong>localStorage</strong>: armazena sua preferência de consentimento (sem dados pessoais).</li>
+  <li><strong>Google Fonts</strong>: as fontes são carregadas de servidores do Google, o que pode registrar seu IP junto ao Google. Consulte a <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidade do Google</a>.</li>
+</ul>
+<h3>4. Finalidade</h3>
+<p>Dados de contato são usados exclusivamente para responder às solicitações recebidas. Não há compartilhamento com terceiros, não há marketing não solicitado.</p>
+<h3>5. Seus Direitos (LGPD – Lei 13.709/2018)</h3>
+<ul>
+  <li>Confirmação da existência de tratamento</li>
+  <li>Acesso, correção e exclusão dos dados</li>
+  <li>Portabilidade e revogação do consentimento</li>
+  <li>Oposição ao tratamento</li>
+</ul>
+<p>Para exercer seus direitos: <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>
+<h3>6. Retenção</h3>
+<p>E-mails de contato são mantidos enquanto necessário para resposta. Não há banco de dados de usuários neste site.</p>`,
+
+  de: `<h2>Datenschutzrichtlinie</h2>
+<p><strong>OPCO IA</strong> — home.opcoia.com.br &nbsp;|&nbsp; Stand: 13.06.2026</p>
+<h3>1. Verantwortlicher</h3>
+<p>OPCO IA (Carlos Silva) — <a href="mailto:carlos@opcotours.com">carlos@opcotours.com</a> / <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>
+<h3>2. Erhobene Daten</h3>
+<p>Diese Website erhebt <strong>keine personenbezogenen Daten</strong> direkt. Der Kontakt erfolgt auf Initiative des Nutzers per E-Mail oder Linktree.</p>
+<h3>3. Cookies und Technologien</h3>
+<ul>
+  <li><strong>localStorage</strong>: speichert Ihre Einwilligungspräferenz (keine persönlichen Daten).</li>
+  <li><strong>Google Fonts</strong>: Schriften werden von Google-Servern geladen, was Ihre IP-Adresse bei Google protokollieren kann. Siehe <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a>.</li>
+</ul>
+<h3>4. Ihre Rechte (LGPD)</h3>
+<ul>
+  <li>Auskunft, Berichtigung, Löschung Ihrer Daten</li>
+  <li>Widerruf der Einwilligung</li>
+  <li>Datenübertragbarkeit</li>
+</ul>
+<p>Anfragen: <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>`,
+
+  en: `<h2>Privacy Policy</h2>
+<p><strong>OPCO IA</strong> — home.opcoia.com.br &nbsp;|&nbsp; Last updated: 13 Jun 2026</p>
+<h3>1. Data Controller</h3>
+<p>OPCO IA (Carlos Silva) — <a href="mailto:carlos@opcotours.com">carlos@opcotours.com</a> / <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>
+<h3>2. Data Collected</h3>
+<p>This site does <strong>not directly collect personal data</strong>. Contact is initiated by the user via email or Linktree. Data provided voluntarily is used solely to respond to the inquiry.</p>
+<h3>3. Cookies and Technologies</h3>
+<ul>
+  <li><strong>localStorage</strong>: stores your consent preference (no personal data).</li>
+  <li><strong>Google Fonts</strong>: fonts are loaded from Google servers, which may log your IP with Google. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
+</ul>
+<h3>4. Your Rights (LGPD – Law 13.709/2018)</h3>
+<ul>
+  <li>Access, correction, and deletion of your data</li>
+  <li>Data portability and consent withdrawal</li>
+  <li>Right to object to processing</li>
+</ul>
+<p>To exercise your rights: <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>`,
+
+  es: `<h2>Política de Privacidad</h2>
+<p><strong>OPCO IA</strong> — home.opcoia.com.br &nbsp;|&nbsp; Última actualización: 13/06/2026</p>
+<h3>1. Responsable del Tratamiento</h3>
+<p>OPCO IA (Carlos Silva) — <a href="mailto:carlos@opcotours.com">carlos@opcotours.com</a> / <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>
+<h3>2. Datos Recopilados</h3>
+<p>Este sitio <strong>no recopila datos personales</strong> directamente. El contacto es iniciado por el usuario vía correo o Linktree.</p>
+<h3>3. Cookies y Tecnologías</h3>
+<ul>
+  <li><strong>localStorage</strong>: guarda su preferencia de consentimiento (sin datos personales).</li>
+  <li><strong>Google Fonts</strong>: las fuentes se cargan desde servidores de Google, lo que puede registrar su IP en Google. Consulte la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidad de Google</a>.</li>
+</ul>
+<h3>4. Sus Derechos (LGPD)</h3>
+<ul>
+  <li>Acceso, corrección y eliminación de sus datos</li>
+  <li>Portabilidad y revocación del consentimiento</li>
+  <li>Derecho de oposición al tratamiento</li>
+</ul>
+<p>Solicitudes: <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>`,
+};
+
+let _currentLang = 'pt';
+const _origSetLang = setLang;
+// patch setLang to track current lang for modal
+function setLang(code) {
+  _currentLang = code;
+  _origSetLang(code);
+}
+
+function showPrivacy() {
+  document.getElementById('privacy-content').innerHTML = PRIVACY[_currentLang] || PRIVACY.pt;
+  document.getElementById('privacy-overlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function hidePrivacy() {
+  document.getElementById('privacy-overlay').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') hidePrivacy();
+});
 </script>
 
 </body>
