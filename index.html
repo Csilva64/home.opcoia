@@ -837,16 +837,10 @@ const PRIVACY = {
 <p>Solicitudes: <a href="mailto:suporte@opcoia.com.br">suporte@opcoia.com.br</a></p>`,
 };
 
-let _currentLang = 'pt';
-const _origSetLang = setLang;
-// patch setLang to track current lang for modal
-function setLang(code) {
-  _currentLang = code;
-  _origSetLang(code);
-}
-
 function showPrivacy() {
-  document.getElementById('privacy-content').innerHTML = PRIVACY[_currentLang] || PRIVACY.pt;
+  const lang = document.documentElement.lang || 'pt';
+  const key = PRIVACY[lang] ? lang : 'pt';
+  document.getElementById('privacy-content').innerHTML = PRIVACY[key];
   document.getElementById('privacy-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
